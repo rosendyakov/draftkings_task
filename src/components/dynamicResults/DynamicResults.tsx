@@ -1,4 +1,4 @@
-import { CategoryEnum } from "../../utils/constants/constants";
+import { CATEGORY_ENUM } from "../../utils/constants/constants";
 import {
   AllApiResponses,
   CategoryApiResponse,
@@ -7,8 +7,8 @@ import {
   StarshipsApiResponse,
   VehiclesApiResponse,
 } from "../../utils/types/types";
-import { AllCategoriesList } from "../resultsList/AllCategoriesList";
-import { CategoryList } from "../resultsList/CategoryList";
+import { AllCategoriesList } from "../resultsList/allCategoriesList/AllCategoriesList";
+import { CategoryList } from "../resultsList/categoryList/CategoryList";
 
 type DynamicResultsProps = {
   category: string | null;
@@ -17,15 +17,15 @@ type DynamicResultsProps = {
 
 export const DynamicResults = ({ category, data }: DynamicResultsProps) => {
   switch (category) {
-    case CategoryEnum.All:
+    case CATEGORY_ENUM.All:
       return <AllCategoriesList data={data as CategoryApiResponse[]} />;
-    case CategoryEnum.People:
+    case CATEGORY_ENUM.People:
       return <CategoryList data={(data as PeopleApiResponse).results} />;
-    case CategoryEnum.Planets:
+    case CATEGORY_ENUM.Planets:
       return <CategoryList data={(data as PlanetsApiResponse).results} />;
-    case CategoryEnum.Vehicles:
+    case CATEGORY_ENUM.Vehicles:
       return <CategoryList data={(data as VehiclesApiResponse).results} />;
-    case CategoryEnum.Starships:
+    case CATEGORY_ENUM.Starships:
       return <CategoryList data={(data as StarshipsApiResponse).results} />;
     // Add other cases for different categories
     default:

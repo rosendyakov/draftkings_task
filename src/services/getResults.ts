@@ -1,4 +1,4 @@
-import { BASE_URL, CategoryEnum, ENDPOINTS } from "../utils/constants/constants"
+import { BASE_URL, CATEGORY_ENUM, ENDPOINTS } from "../utils/constants/constants"
 import { AllApiResponses, CategoryApiResponse } from "../utils/types/types";
 
 
@@ -19,7 +19,7 @@ const getAllData = async (searchQuery: string): Promise<AllApiResponses> => {
 };
 
 const getResults = async (category: string, searchQuery: string): Promise<AllApiResponses | CategoryApiResponse> => {
-  if (category.toLowerCase() === CategoryEnum.All) {
+  if (category.toLowerCase() === CATEGORY_ENUM.All) {
     const response = await getAllData(searchQuery);
     return response;
   } else {
