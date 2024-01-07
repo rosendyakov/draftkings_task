@@ -1,12 +1,11 @@
 import { useRef, useState } from "react";
 
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import styles from "./searchForm.module.scss";
 import { SearchInput } from "./input/Input";
 import { RadioButtons } from "./radioButtons/RadioButtons";
 import { SubmitButton } from "./submitButton/SubmitButton";
 import { CategoryEnum, categories } from "../../utils/constants/constants";
-import { useResults } from "../../queries/results";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { getResults } from "../../services/getResults";
@@ -26,8 +25,8 @@ export const SearchForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await queryClient.fetchQuery({
-      queryKey: ["results"],
-      queryFn: () => getResults(radioValue, inputRef.current?.value),
+      queryKey: ["results", radioValue, inputRef.current?.value],
+      queryFn: () => getResults(radioValue, inputRef.current?.value || ""),
     });
     const url = new URLSearchParams({
       category: radioValue,
@@ -38,38 +37,36 @@ export const SearchForm = () => {
 
   return (
     <div className={styles.searchForm}>
-      <Paper elevation={2}>
-        <Grid container flexDirection={"row"} p={2}>
-          <Grid item>
+      <Grid container flexDirection={"row"} p={2}>
+        <Grid item>
+          <Box
+            sx={{
+              marginTop: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography component="h1" variant="h5">
+              Search
+            </Typography>
             <Box
-              sx={{
-                marginTop: 2,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
             >
-              <Typography component="h1" variant="h5">
-                Search
-              </Typography>
-              <Box
-                component="form"
-                onSubmit={handleSubmit}
-                noValidate
-                sx={{ mt: 1 }}
-              >
-                <SearchInput inputRef={inputRef} />
-                <RadioButtons
-                  categories={categories}
-                  radioValue={radioValue}
-                  onChange={handleChange}
-                />
-                <SubmitButton />
-              </Box>
+              <SearchInput inputRef={inputRef} />
+              <RadioButtons
+                categories={categories}
+                radioValue={radioValue}
+                onChange={handleChange}
+              />
+              <SubmitButton />
             </Box>
-          </Grid>
+          </Box>
         </Grid>
-      </Paper>
+      </Grid>
     </div>
   );
 };
