@@ -1,5 +1,5 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import { Category } from "../SearchForm";
+import { Category } from "../../../utils/types/types";
 
 type RadioButtonsProps = {
   radioValue: string;

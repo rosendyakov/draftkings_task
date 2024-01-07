@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./pages/home/Home";
-import { Results } from "./pages/searchResults/SearchResults";
+import { Results } from "./pages/searchResults/Results";
 import { ErrorPage } from "./pages/errorPage/ErrorPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
