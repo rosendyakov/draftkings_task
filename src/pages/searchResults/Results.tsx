@@ -24,13 +24,13 @@ export const Results = () => {
         </Typography>
         <SearchForm />
       </Grid>
-      <Grid item p={2}>
-        <Typography component="body">
+      <Grid item px={2}>
+        <Typography component="h4">
           {" "}
           Searched for <b>"{searchQuery}"</b> in category <b>"{category}"</b>
         </Typography>
       </Grid>
-      <Grid item p={2}>
+      <Grid item px={2}>
         {data ? (
           <DynamicResults category={category} data={data} />
         ) : (
