@@ -1,6 +1,6 @@
-import { Grid } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import StarWarsLogo from "../../assets/Star_Wars_Logo.png";
-import styles from "./PageContainer.module.scss";
+import styles from "./pageContainer.module.scss";
 
 type PageContainerProps = {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ export const PageContainer = ({ children }: PageContainerProps) => {
       <Grid item>
         <img src={StarWarsLogo} className={styles.logo} />
       </Grid>
-      {children}
+      <Paper>{children}</Paper>
     </Grid>
   );
 };
