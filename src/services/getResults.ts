@@ -1,5 +1,5 @@
 import { BASE_URL, CATEGORY_ENUM, ENDPOINTS } from "../utils/constants/constants"
-import { AllApiResponses, CategoryApiResponse } from "../utils/types/types";
+import { AllApiResponses, CategoryApiResponse, Film, Starship, Vehicle } from "../utils/types/types";
 
 
 
@@ -28,6 +28,34 @@ const getResults = async (category: string, searchQuery: string): Promise<AllApi
   }
 };
 
+const getFilms = async (urls: string[]): Promise<Film[]> => {
+  const promises = urls.map(url => fetch(url).then(response => response.json()));
+  const response = await Promise.all(promises);
+  return response;
+}
+
+const getVehicles = async (urls: string[]): Promise<Vehicle[]> => {
+  const promises = urls.map(url => fetch(url).then(response => response.json()));
+  const response = await Promise.all(promises);
+  return response;
+}
+
+const getStarships = async (urls: string[]): Promise<Starship[]> => {
+  const promises = urls.map(url => fetch(url).then(response => response.json()));
+  const response = await Promise.all(promises);
+  return response;
+}
+
+const getSingleResult = async (category: string, id: string): Promise<CategoryApiResponse> => {
+  const url = new URL(`${BASE_URL}${category.toLowerCase()}/${id}`);
+  const response = await fetch(url.toString());
+  return response.json();
+}
+
 export {
-  getResults
+  getResults,
+  getFilms,
+  getVehicles,
+  getStarships,
+  getSingleResult
 };
