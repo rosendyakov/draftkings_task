@@ -7,7 +7,15 @@ const getFilmIds = (filmUrls: string[]) => {
   return filmIds;
 };
 
+const getUrlPathName = (url: string) => {
+  const newUrl = new URL(url);
+  // Remove the leading "/api" part
+  const relevantPath = newUrl.pathname.slice(4);
+  return relevantPath;
+}
+
 export {
   sortedArrayDesc,
-  getFilmIds
+  getFilmIds,
+  getUrlPathName
 }
