@@ -7,6 +7,10 @@ import { Results } from "./pages/searchResults/Results";
 import { ErrorPage } from "./pages/errorPage/ErrorPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { PersonDetails } from "./components/details/PersonDetails";
+import { PlanetDetails } from "./components/details/PlanetDetails";
+import { VehicleDetails } from "./components/details/VehicleDetails";
+import { StarshipDetails } from "./components/details/StarshipDetails";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +20,22 @@ const router = createBrowserRouter([
   {
     path: "/search-results",
     element: <Results />,
-    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/people/:id/",
+    element: <PersonDetails />,
+  },
+  {
+    path: "/planets/:id",
+    element: <PlanetDetails />,
+  },
+  {
+    path: "/vehicles/:id",
+    element: <VehicleDetails />,
+  },
+  {
+    path: "/starships/:id",
+    element: <StarshipDetails />,
   },
   {
     path: "*",
