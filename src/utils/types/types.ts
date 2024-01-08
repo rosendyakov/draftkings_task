@@ -81,6 +81,23 @@ type Starship = {
   url: string;
 };
 
+type Film = {
+  characters: string[];
+  created: string;
+  director: string;
+  edited: string;
+  episode_id: number;
+  opening_crawl: string;
+  planets: string[];
+  producer: string;
+  release_date: string;
+  species: string[];
+  starships: string[];
+  title: string;
+  url: string;
+  vehicles: string[];
+};
+
 interface ApiResponse {
   count: number;
   next: string | null;
@@ -116,6 +133,7 @@ export type {
   Planet,
   Vehicle,
   Starship,
+  Film,
   PeopleApiResponse,
   PlanetsApiResponse,
   VehiclesApiResponse,
