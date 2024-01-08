@@ -26,7 +26,6 @@ export const Results = () => {
       </Grid>
       <Grid item px={2}>
         <Typography component="h4">
-          {" "}
           Searched for <b>"{searchQuery}"</b> in category <b>"{category}"</b>
         </Typography>
       </Grid>
