@@ -14,8 +14,16 @@ const getUrlPathName = (url: string) => {
   return relevantPath;
 }
 
+const getMaxCount = (arrayOfObjects) => {
+  return arrayOfObjects.reduce((accumulator, current) => {
+    return accumulator.count > current.count ? accumulator : current;
+  });
+
+}
+
 export {
   sortedArrayDesc,
   getFilmIds,
-  getUrlPathName
+  getUrlPathName,
+  getMaxCount
 }
