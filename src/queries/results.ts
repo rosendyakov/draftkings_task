@@ -3,13 +3,13 @@ import { getFilms, getResidents, getResults, getSingleResult, getSpecies, getSta
 import { QUERY_STALE_TIME } from "../utils/constants/constants";
 import { Person, Planet, Starship, Vehicle } from "../utils/types/types";
 
-const useResults = (category: string, searchQuery: string) => {  
+const useResults = (category: string, searchQuery: string, page: number ) => {  
   return useQuery({
-  queryKey: ["results", category, searchQuery], 
+  queryKey: ["results", category, searchQuery, page], 
    // staleTIme is needed because react router unmounts and
    // mounts the component and react query makes a request every 
    // time the component is mounted, which we are trying to avoid here.
-  queryFn: () => getResults(category, searchQuery), staleTime: QUERY_STALE_TIME});
+  queryFn: () => getResults(category, searchQuery, page), staleTime: QUERY_STALE_TIME});
 
 }
 

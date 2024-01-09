@@ -3,27 +3,29 @@ import { AllApiResponses, CategoryApiResponse, Film, Person, Planet, Species, St
 
 
 
-const getData = async (category: string, searchQuery: string): Promise<CategoryApiResponse> => {
-  const url = new URL(`${BASE_URL}${category.toLowerCase()}`);
-  if (searchQuery) {
-    url.searchParams.append('search', searchQuery);
+const getData = async (category: string, searchQuery: string, page: number): Promise<CategoryApiResponse> => {
+  let url;
+  if(page === 1){
+    url = new URL(`${BASE_URL}${category}?search=${searchQuery}`);
+  } else {
+    url = new URL(`${BASE_URL}${category}?search=${searchQuery}&page=${page}`);
   }
   const response = await fetch(url.toString());
   return response.json();
 };
 
-const getAllData = async (searchQuery: string): Promise<AllApiResponses> => {
-  const promises = ENDPOINTS.map(endpoint => getData(endpoint, searchQuery));
+const getAllData = async (searchQuery: string, page: number): Promise<AllApiResponses> => {
+  const promises = ENDPOINTS.map(endpoint => getData(endpoint, searchQuery, page));
   const response = await Promise.all(promises);
   return response;
 };
 
-const getResults = async (category: string, searchQuery: string): Promise<AllApiResponses | CategoryApiResponse> => {
-  if (category.toLowerCase() === CATEGORY_ENUM.All) {
-    const response = await getAllData(searchQuery);
+const getResults = async (category: string, searchQuery: string, page: number): Promise<AllApiResponses | CategoryApiResponse> => {
+  if (category === CATEGORY_ENUM.All) {
+    const response = await getAllData(searchQuery, page);
     return response;
   } else {
-    const response = await getData(category, searchQuery);
+    const response = await getData(category, searchQuery, page);
     return response;
   }
 };
@@ -45,7 +47,7 @@ const getResidents = (urls: string[]): Promise<Person[]> => fetchSingleData(urls
 const getSingleResult = async <T extends Person | Planet | Vehicle | Starship>(
   category: string,
   id: string
-): Promise<T> => {  const url = new URL(`${BASE_URL}${category.toLowerCase()}/${id}`);
+): Promise<T> => {  const url = new URL(`${BASE_URL}${category}/${id}`);
   const response = await fetch(url.toString());
   return response.json();
 }
