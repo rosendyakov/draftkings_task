@@ -1,13 +1,14 @@
-import { useParams } from "react-router-dom";
-import { PageContainer } from "../pageContainer/PageContainer";
 import { Paper, TableContainer } from "@mui/material";
+import { useParams } from "react-router-dom";
+
+import { useFilms, useSingleResult } from "../../queries/results";
 import {
   CATEGORY_ENUM,
   STARSHIP_COLUMNS,
 } from "../../utils/constants/constants";
 import { Starship } from "../../utils/types/types";
+import { PageContainer } from "../pageContainer/PageContainer";
 import { AsyncCustomTable } from "../table/AsyncCustomTable";
-import { useFilms, useSingleResult } from "../../queries/results";
 
 export const StarshipDetails = () => {
   const { id } = useParams();

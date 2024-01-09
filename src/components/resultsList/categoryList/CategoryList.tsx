@@ -1,7 +1,9 @@
 import { useState } from "react";
+
+import { Button, Grid, Typography } from "@mui/material";
+
 import { Person, Planet, Starship, Vehicle } from "../../../utils/types/types";
 import { getFilmIds } from "../../../utils/utils";
-import { Button, Grid, Typography } from "@mui/material";
 import { Details } from "../../details/Details";
 
 type PersonDetailsProps = {

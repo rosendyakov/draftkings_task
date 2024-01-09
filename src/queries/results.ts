@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
+
 import { getFilms, getResidents, getResults, getSingleResult, getSpecies, getStarships, getVehicles } from "../services/getResults";
 import { QUERY_STALE_TIME } from "../utils/constants/constants";
 import { Person, Planet, Starship, Vehicle } from "../utils/types/types";

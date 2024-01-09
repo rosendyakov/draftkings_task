@@ -1,9 +1,10 @@
+import { ArrowForward } from "@mui/icons-material";
 import { Button, Grid, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+
 import { useFilms } from "../../../queries/results";
 import { Starship } from "../../../utils/types/types";
-import { Link } from "react-router-dom";
 import { getUrlPathName } from "../../../utils/utils";
-import { ArrowForward } from "@mui/icons-material";
 
 type StarshipDetailsListProps = {
   item: Starship | null;

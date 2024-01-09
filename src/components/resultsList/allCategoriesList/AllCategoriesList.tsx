@@ -1,4 +1,12 @@
-import { getFilmIds, getMaxCount, sortedArrayDesc } from "../../../utils/utils";
+import { useEffect, useState } from "react";
+
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import { Button, Grid, Typography } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
+
+import { usePage } from "../../../context/PageContext";
+import { getResults } from "../../../services/getResults";
+import { QUERY_STALE_TIME } from "../../../utils/constants/constants";
 import {
   CategoryApiResponse,
   Person,
@@ -6,14 +14,8 @@ import {
   Starship,
   Vehicle,
 } from "../../../utils/types/types";
-import { Button, Grid, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { getFilmIds, getMaxCount, sortedArrayDesc } from "../../../utils/utils";
 import { Details } from "../../details/Details";
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { useQueryClient } from "@tanstack/react-query";
-import { getResults } from "../../../services/getResults";
-import { QUERY_STALE_TIME } from "../../../utils/constants/constants";
-import { usePage } from "../../../context/PageContext";
 
 interface AllCategoriesListProps {
   data: CategoryApiResponse[];
@@ -22,6 +24,9 @@ interface AllCategoriesListProps {
 export const AllCategoriesList = ({ data }: AllCategoriesListProps) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const context = usePage();
+  // the highest count of all categories, divided by the results per page (10)
+  // rounded up, to get the last page
+  const lastPage = Math.ceil(getMaxCount(data) / 10);
 
   const handleNext = () => {
     context.dispatch({ type: "SET_PAGE", payload: context.pageState.page + 1 });
@@ -36,6 +41,7 @@ export const AllCategoriesList = ({ data }: AllCategoriesListProps) => {
   };
 
   const queryClient = useQueryClient();
+  // Fetch the next page of results when the page changes
   useEffect(() => {
     const fetchNext = async () => {
       try {
@@ -73,7 +79,7 @@ export const AllCategoriesList = ({ data }: AllCategoriesListProps) => {
         </Button>
         <Button
           endIcon={<ArrowForward />}
-          disabled={context.pageState.page === getMaxCount(data)}
+          disabled={context.pageState.page === lastPage}
           onClick={handleNext}
         >
           Next
@@ -81,6 +87,7 @@ export const AllCategoriesList = ({ data }: AllCategoriesListProps) => {
       </Grid>
       <Grid container flexDirection={"row"}>
         <Grid item>
+          {/* Sort categories based on count */}
           {sortedArrayDesc(data).map((category) => {
             return (
               <Grid container flexDirection={"column"}>
@@ -117,7 +124,6 @@ export const AllCategoriesList = ({ data }: AllCategoriesListProps) => {
             );
           })}
         </Grid>
-
         <Grid item maxWidth={250} overflow={"hidden"}>
           {selectedItem && (
             <Grid container flexDirection={"column"}>

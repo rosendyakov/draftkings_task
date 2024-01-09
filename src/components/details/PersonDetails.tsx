@@ -1,8 +1,7 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { PageContainer } from "../pageContainer/PageContainer";
+import { ArrowBack } from "@mui/icons-material";
 import { Button, Paper, TableContainer } from "@mui/material";
-import { CATEGORY_ENUM, PERSON_COLUMNS } from "../../utils/constants/constants";
-import { AsyncCustomTable } from "../table/AsyncCustomTable";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
 import {
   useFilms,
   useSingleResult,
@@ -10,8 +9,10 @@ import {
   useStarships,
   useVehicles,
 } from "../../queries/results";
+import { CATEGORY_ENUM, PERSON_COLUMNS } from "../../utils/constants/constants";
 import { Person } from "../../utils/types/types";
-import { ArrowBack } from "@mui/icons-material";
+import { PageContainer } from "../pageContainer/PageContainer";
+import { AsyncCustomTable } from "../table/AsyncCustomTable";
 
 export const PersonDetails = () => {
   const { id } = useParams();

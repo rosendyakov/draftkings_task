@@ -1,6 +1,7 @@
 import { Grid, Paper } from "@mui/material";
-import StarWarsLogo from "../../assets/Star_Wars_Logo.png";
+
 import styles from "./pageContainer.module.scss";
+import StarWarsLogo from "../../assets/Star_Wars_Logo.png";
 
 type PageContainerProps = {
   children: React.ReactNode;

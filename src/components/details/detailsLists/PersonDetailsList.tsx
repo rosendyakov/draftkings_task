@@ -1,4 +1,7 @@
+import { ArrowForward } from "@mui/icons-material";
 import { Button, Grid, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+
 import {
   useFilms,
   useSpecies,
@@ -6,8 +9,6 @@ import {
   useVehicles,
 } from "../../../queries/results";
 import { Person } from "../../../utils/types/types";
-import { Link } from "react-router-dom";
-import { ArrowForward } from "@mui/icons-material";
 import { getUrlPathName } from "../../../utils/utils";
 
 type PersonDetailsListProps = {

@@ -1,17 +1,18 @@
 import { useRef, useState } from "react";
 
 import { Box, Grid, Typography } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+
 import { SearchInput } from "./input/Input";
 import { RadioButtons } from "./radioButtons/RadioButtons";
 import { SubmitButton } from "./submitButton/SubmitButton";
+import { getResults } from "../../services/getResults";
 import {
-  CATEGORY_ENUM,
   CATEGORIES,
+  CATEGORY_ENUM,
   QUERY_STALE_TIME,
 } from "../../utils/constants/constants";
-import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
-import { getResults } from "../../services/getResults";
 
 export const SearchForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);

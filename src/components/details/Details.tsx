@@ -1,10 +1,10 @@
-import { Person, Planet, Starship, Vehicle } from "../../utils/types/types";
-import { getUrlPathName } from "../../utils/utils";
-import { CATEGORY_ENUM } from "../../utils/constants/constants";
 import { PersonDetailsList } from "./detailsLists/PersonDetailsList";
 import { PlanetDetailsList } from "./detailsLists/PlanetDetailsList";
-import { VehicleDetailsList } from "./detailsLists/VehicleDetailsList";
 import { StarshipDetailsList } from "./detailsLists/StarshipDetailsList";
+import { VehicleDetailsList } from "./detailsLists/VehicleDetailsList";
+import { CATEGORY_ENUM } from "../../utils/constants/constants";
+import { Person, Planet, Starship, Vehicle } from "../../utils/types/types";
+import { getUrlPathName } from "../../utils/utils";
 
 type PersonDetailsProps = {
   item: Person | null;

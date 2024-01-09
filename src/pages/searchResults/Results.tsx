@@ -1,10 +1,11 @@
 import { Grid, Typography } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
+
+import { DynamicResults } from "../../components/dynamicResults/DynamicResults";
 import { PageContainer } from "../../components/pageContainer/PageContainer";
 import { SearchForm } from "../../components/searchForm/SearchForm";
-import { useSearchParams } from "react-router-dom";
-import { useResults } from "../../queries/results";
-import { DynamicResults } from "../../components/dynamicResults/DynamicResults";
 import { usePage } from "../../context/PageContext";
+import { useResults } from "../../queries/results";
 
 export const Results = () => {
   const [searchParams] = useSearchParams();

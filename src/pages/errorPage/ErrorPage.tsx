@@ -1,6 +1,7 @@
 import { Button, Grid, Typography } from "@mui/material";
-import { PageContainer } from "../../components/pageContainer/PageContainer";
 import { Link } from "react-router-dom";
+
+import { PageContainer } from "../../components/pageContainer/PageContainer";
 
 export const ErrorPage = () => {
   return (
