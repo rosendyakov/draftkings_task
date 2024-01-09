@@ -4,17 +4,18 @@ import { SearchForm } from "../../components/searchForm/SearchForm";
 import { useSearchParams } from "react-router-dom";
 import { useResults } from "../../queries/results";
 import { DynamicResults } from "../../components/dynamicResults/DynamicResults";
+import { usePage } from "../../context/PageContext";
 
 export const Results = () => {
   const [searchParams] = useSearchParams();
+  const context = usePage();
   const category = searchParams.get("category");
   const searchQuery = searchParams.get("query");
-  const { data, isError, error } = useResults(
+  const { data, isError, error, isLoading } = useResults(
     category || "",
-    searchQuery || ""
+    searchQuery || "",
+    context.pageState.page
   );
-
-  if (isError) return <h1>{error.name}</h1>;
 
   return (
     <PageContainer>
@@ -30,11 +31,15 @@ export const Results = () => {
         </Typography>
       </Grid>
       <Grid item px={2}>
-        {data ? (
-          <DynamicResults category={category} data={data} />
-        ) : (
-          "Loading..."
+        {isLoading && !data && (
+          <Typography component="h4">Loading...</Typography>
         )}
+        {isError && !data && (
+          <Typography component="h4">
+            Error loading data - {error.message}
+          </Typography>
+        )}
+        {data && <DynamicResults category={category} data={data} />}
       </Grid>
     </PageContainer>
   );
