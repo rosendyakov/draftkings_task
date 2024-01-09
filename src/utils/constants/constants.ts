@@ -25,9 +25,9 @@ const QUERY_STALE_TIME = 1000 * 60 * 5 // 5 mins
 const PERSON_COLUMNS = [
   { label: 'Name', key: 'name' },
   { label: 'Birth Year', key: 'birth_year' },
-  { label: 'Species', key: 'species' },
-  { label: 'Starships', key: 'starships' },
-  { label: 'Vehicles', key: 'vehicles' },
+  // { label: 'Species', key: 'species' },
+  // { label: 'Starships', key: 'starships' },
+  // { label: 'Vehicles', key: 'vehicles' },
 ];
 
 const PLANET_COLUMNS = [
@@ -35,7 +35,7 @@ const PLANET_COLUMNS = [
   { label: 'Climate', key: 'climate' },
   { label: 'Diameter', key: 'diameter' },
   { label: 'Gravity', key: 'gravity' },
-  { label: 'Residents', key: 'residents' },
+  // { label: 'Residents', key: 'residents' },
 ];
 
 const VEHICLE_COLUMNS = [
