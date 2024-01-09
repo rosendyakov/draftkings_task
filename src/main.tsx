@@ -11,6 +11,7 @@ import { PersonDetails } from "./components/details/PersonDetails";
 import { PlanetDetails } from "./components/details/PlanetDetails";
 import { VehicleDetails } from "./components/details/VehicleDetails";
 import { StarshipDetails } from "./components/details/StarshipDetails";
+import { PageProvider } from "./context/PageContext";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,9 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <PageProvider>
+        <RouterProvider router={router} />
+      </PageProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>
