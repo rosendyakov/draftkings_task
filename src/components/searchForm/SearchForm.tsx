@@ -30,7 +30,7 @@ export const SearchForm = () => {
     event.preventDefault();
     await queryClient.fetchQuery({
       queryKey: ["results", radioValue, inputRef.current?.value],
-      queryFn: () => getResults(radioValue, inputRef.current?.value || ""),
+      queryFn: () => getResults(radioValue, inputRef.current?.value || "", 1),
       staleTime: QUERY_STALE_TIME,
     });
     const url = new URLSearchParams({
@@ -58,7 +58,7 @@ export const SearchForm = () => {
             <Box
               component="form"
               onSubmit={handleSubmit}
-              noValidate
+              noValidate={false}
               sx={{ mt: 1 }}
             >
               <SearchInput inputRef={inputRef} />
