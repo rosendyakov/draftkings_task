@@ -1,35 +1,30 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { PageContainer } from "../pageContainer/PageContainer";
 import { Paper, TableContainer } from "@mui/material";
-import { CustomTable } from "../table/CustomTable";
 import {
   CATEGORY_ENUM,
-  VEHICLE_COLUMNS,
+  STARSHIP_COLUMNS,
 } from "../../utils/constants/constants";
 import { Starship } from "../../utils/types/types";
 import { AsyncCustomTable } from "../table/AsyncCustomTable";
+import { useFilms, useSingleResult } from "../../queries/results";
 
 export const StarshipDetails = () => {
-  const location = useLocation();
   const { id } = useParams();
-  const state: Starship = location.state;
+  const { data } = useSingleResult<Starship>(
+    CATEGORY_ENUM.Starships,
+    id ? id : ""
+  );
+  const isEnabled = data?.name ? true : false;
+  const { data: films } = useFilms(data?.films ?? [], isEnabled);
 
-  if (state) {
-    return (
-      <PageContainer>
-        <TableContainer component={Paper}>
-          <CustomTable data={state} columns={VEHICLE_COLUMNS} />
-        </TableContainer>
-      </PageContainer>
-    );
-  }
   return (
     <PageContainer>
       <TableContainer component={Paper}>
         <AsyncCustomTable
-          endpoint={CATEGORY_ENUM.Vehicles}
-          id={id || ""}
-          columns={VEHICLE_COLUMNS}
+          data={data}
+          films={films}
+          columns={STARSHIP_COLUMNS}
         />
       </TableContainer>
     </PageContainer>

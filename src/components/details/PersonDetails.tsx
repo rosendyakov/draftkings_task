@@ -1,35 +1,47 @@
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { PageContainer } from "../pageContainer/PageContainer";
-import { Paper, TableContainer } from "@mui/material";
-import { CustomTable } from "../table/CustomTable";
-import {
-  CATEGORY_ENUM,
-  VEHICLE_COLUMNS,
-} from "../../utils/constants/constants";
-import { Person } from "../../utils/types/types";
+import { Button, Paper, TableContainer } from "@mui/material";
+import { CATEGORY_ENUM, PERSON_COLUMNS } from "../../utils/constants/constants";
 import { AsyncCustomTable } from "../table/AsyncCustomTable";
+import {
+  useFilms,
+  useSingleResult,
+  useSpecies,
+  useStarships,
+  useVehicles,
+} from "../../queries/results";
+import { Person } from "../../utils/types/types";
+import { ArrowBack } from "@mui/icons-material";
 
 export const PersonDetails = () => {
-  const location = useLocation();
   const { id } = useParams();
-  const state: Person = location.state;
+  const navigate = useNavigate();
+  const { data } = useSingleResult<Person>(CATEGORY_ENUM.People, id ? id : "");
+  const isEnabled = data?.name ? true : false;
+  const { data: films } = useFilms(data?.films ?? [], isEnabled);
+  const { data: species } = useSpecies(data?.species ?? [], isEnabled);
+  const { data: vehicles } = useVehicles(data?.vehicles ?? [], isEnabled);
+  const { data: starships } = useStarships(data?.starships ?? [], isEnabled);
 
-  if (state) {
-    return (
-      <PageContainer>
-        <TableContainer component={Paper}>
-          <CustomTable data={state} columns={VEHICLE_COLUMNS} />
-        </TableContainer>
-      </PageContainer>
-    );
-  }
+  const handleClick = () => {
+    navigate(-1);
+  };
+
   return (
     <PageContainer>
+      <Link to="/">
+        <Button variant="text" startIcon={<ArrowBack />} onClick={handleClick}>
+          Back
+        </Button>
+      </Link>
       <TableContainer component={Paper}>
         <AsyncCustomTable
-          endpoint={CATEGORY_ENUM.Vehicles}
-          id={id || ""}
-          columns={VEHICLE_COLUMNS}
+          data={data}
+          films={films}
+          species={species}
+          vehicles={vehicles}
+          starships={starships}
+          columns={PERSON_COLUMNS}
         />
       </TableContainer>
     </PageContainer>
