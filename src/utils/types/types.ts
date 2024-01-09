@@ -6,6 +6,7 @@ type Category = {
 };
 
 type Person = {
+  category: 'person';
   birth_year: string;
   eye_color: string;
   films: string[];
@@ -25,6 +26,7 @@ type Person = {
 }
 
 type Planet = {
+  category: 'planet';
   climate: string;
   created: string;
   diameter: string;
@@ -42,6 +44,7 @@ type Planet = {
 };
 
 type Vehicle = {
+  category: 'vehicle';
   cargo_capacity: string;
   consumables: string;
   cost_in_credits: string;
@@ -61,6 +64,7 @@ type Vehicle = {
 };
 
 type Starship = {
+  category: 'starship';
   MGLT: string;
   cargo_capacity: string;
   consumables: string;
@@ -82,6 +86,7 @@ type Starship = {
 };
 
 type Film = {
+  category: 'film';
   characters: string[];
   created: string;
   director: string;
@@ -96,6 +101,25 @@ type Film = {
   title: string;
   url: string;
   vehicles: string[];
+};
+
+type Species = {
+  category: 'species';
+  average_height: string;
+  average_lifespan: string;
+  classification: string;
+  created: string;
+  designation: string;
+  edited: string;
+  eye_colors: string;
+  hair_colors: string;
+  homeworld: string;
+  language: string;
+  name: string;
+  people: string[];
+  films: string[];
+  skin_colors: string;
+  url: string;
 };
 
 interface ApiResponse {
@@ -134,6 +158,7 @@ export type {
   Vehicle,
   Starship,
   Film,
+  Species,
   PeopleApiResponse,
   PlanetsApiResponse,
   VehiclesApiResponse,
