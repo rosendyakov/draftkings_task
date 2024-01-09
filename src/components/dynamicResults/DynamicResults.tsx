@@ -16,6 +16,7 @@ type DynamicResultsProps = {
 };
 
 export const DynamicResults = ({ category, data }: DynamicResultsProps) => {
+  // Render the correct component based on the category
   switch (category) {
     case CATEGORY_ENUM.All:
       return <AllCategoriesList data={data as CategoryApiResponse[]} />;

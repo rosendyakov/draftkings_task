@@ -9,6 +9,7 @@ import { usePage } from "../../context/PageContext";
 export const Results = () => {
   const [searchParams] = useSearchParams();
   const context = usePage();
+  // Get the category and query from the URL
   const category = searchParams.get("category");
   const searchQuery = searchParams.get("query");
   const { data, isError, error, isLoading } = useResults(

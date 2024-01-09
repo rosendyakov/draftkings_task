@@ -15,10 +15,10 @@ const getUrlPathName = (url: string) => {
 }
 
 const getMaxCount = (arrayOfObjects) => {
-  return arrayOfObjects.reduce((accumulator, current) => {
+  const result =  arrayOfObjects.reduce((accumulator, current) => {
     return accumulator.count > current.count ? accumulator : current;
   });
-
+  return result.count;
 }
 
 export {

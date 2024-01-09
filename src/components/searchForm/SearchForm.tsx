@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 
 import { Box, Grid, Typography } from "@mui/material";
-import styles from "./searchForm.module.scss";
 import { SearchInput } from "./input/Input";
 import { RadioButtons } from "./radioButtons/RadioButtons";
 import { SubmitButton } from "./submitButton/SubmitButton";
@@ -15,7 +14,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getResults } from "../../services/getResults";
 
 export const SearchForm = () => {
-  // useRef instead of useState because it's unnecessary to re-render the component when the input value changes
   const inputRef = useRef<HTMLInputElement>(null);
   const [radioValue, setRadioValue] = useState(CATEGORY_ENUM.All);
 
@@ -26,10 +24,12 @@ export const SearchForm = () => {
     setRadioValue(event.target.value as CATEGORY_ENUM);
   };
 
+  // Fire off a query to get the results and cache them
+  // Then navigate to the results page
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await queryClient.fetchQuery({
-      queryKey: ["results", radioValue, inputRef.current?.value],
+      queryKey: ["results", radioValue, inputRef.current?.value, 1],
       queryFn: () => getResults(radioValue, inputRef.current?.value || "", 1),
       staleTime: QUERY_STALE_TIME,
     });
@@ -41,7 +41,7 @@ export const SearchForm = () => {
   };
 
   return (
-    <div className={styles.searchForm}>
+    <>
       <Grid container flexDirection={"row"} p={2}>
         <Grid item>
           <Box
@@ -72,6 +72,6 @@ export const SearchForm = () => {
           </Box>
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 };
