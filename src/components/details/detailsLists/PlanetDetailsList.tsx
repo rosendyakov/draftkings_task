@@ -11,8 +11,16 @@ type PlanetDetailsListProps = {
 
 export const PlanetDetailsList = ({ item }: PlanetDetailsListProps) => {
   const isEnabled = true;
-  const { data: films } = useFilms(item?.films ?? [], isEnabled);
-  const { data: residents } = useResidents(item?.residents ?? [], isEnabled);
+  const {
+    data: films,
+    isLoading: isFilmsLoading,
+    isError: isFilmsError,
+  } = useFilms(item?.films ?? [], isEnabled);
+  const {
+    data: residents,
+    isLoading: isResidentsLoading,
+    isError: isResidentsError,
+  } = useResidents(item?.residents ?? [], isEnabled);
 
   return (
     <Grid container flexDirection={"column"}>
@@ -32,10 +40,18 @@ export const PlanetDetailsList = ({ item }: PlanetDetailsListProps) => {
           Diameter: {item?.diameter}
         </Typography>
         <Typography variant="body2" m={1}>
-          Films: {films?.map((film) => film.title).join(", ")}
+          Films:
+          {isFilmsError && <Typography>Error loading films</Typography>}
+          {isFilmsLoading
+            ? "Loading..."
+            : films?.map((film) => film.title).join(", ")}
         </Typography>
         <Typography variant="body2" m={1}>
-          Residents: {residents?.map((resident) => resident.name).join(", ")}
+          Residents:
+          {isResidentsError && <Typography>Error loading residents</Typography>}
+          {isResidentsLoading
+            ? "Loading..."
+            : residents?.map((resident) => resident.name).join(", ")}
         </Typography>
         <Link to={getUrlPathName(item?.url ?? "")}>
           <Button variant="text" endIcon={<ArrowForward />}>

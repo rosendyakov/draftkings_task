@@ -52,54 +52,69 @@ export const AsyncCustomTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {data && Object.keys(data).length > 0 ? (
-            <>
-              {columns.map((column) => (
-                <TableCell>
-                  <Typography variant="body2">{data[column.key]}</Typography>
-                </TableCell>
-              ))}
-            </>
-          ) : (
-            <TableCell>No data</TableCell>
-          )}
-          {species && (
-            <TableCell>
-              {species?.map((specie) => (
-                <Typography variant="body2">{specie.name}</Typography>
-              ))}
-            </TableCell>
-          )}
-          {vehicles && (
-            <TableCell>
-              {vehicles?.map((vehicle) => (
-                <Typography variant="body2">{vehicle.name}</Typography>
-              ))}
-            </TableCell>
-          )}
-          {starships && (
-            <TableCell>
-              {starships?.map((starship) => (
-                <Typography variant="body2">{starship.name}</Typography>
-              ))}
-            </TableCell>
-          )}
-
-          {residents && (
-            <TableCell>
-              {residents?.map((resident) => (
-                <Typography variant="body2">{resident.name}</Typography>
-              ))}
-            </TableCell>
-          )}
-
-          {films && (
-            <TableCell>
-              {films?.map((film) => (
-                <Typography variant="body2">{film.title}</Typography>
-              ))}
-            </TableCell>
-          )}
+          <TableRow>
+            {data && Object.keys(data).length > 0 ? (
+              <>
+                {columns.map((column) => (
+                  <TableCell>
+                    <Typography variant="body2">{data[column.key]}</Typography>
+                  </TableCell>
+                ))}
+              </>
+            ) : (
+              <TableCell>Loading...</TableCell>
+            )}
+            {species && species.length === 0 && <TableCell>None</TableCell>}
+            {species ? (
+              <TableCell>
+                {species?.map((specie) => (
+                  <Typography variant="body2">{specie.name}</Typography>
+                ))}
+              </TableCell>
+            ) : (
+              <TableCell>Loading...</TableCell>
+            )}
+            {vehicles && vehicles.length === 0 && <TableCell>None</TableCell>}
+            {vehicles ? (
+              <TableCell>
+                {vehicles?.map((vehicle) => (
+                  <Typography variant="body2">{vehicle.name}</Typography>
+                ))}
+              </TableCell>
+            ) : (
+              <TableCell>Loading...</TableCell>
+            )}
+            {starships && starships.length === 0 && <TableCell>None</TableCell>}
+            {starships ? (
+              <TableCell>
+                {starships?.map((starship) => (
+                  <Typography variant="body2">{starship.name}</Typography>
+                ))}
+              </TableCell>
+            ) : (
+              <TableCell>Loading...</TableCell>
+            )}
+            {residents && residents.length === 0 && <TableCell>None</TableCell>}
+            {residents ? (
+              <TableCell>
+                {residents?.map((resident) => (
+                  <Typography variant="body2">{resident.name}</Typography>
+                ))}
+              </TableCell>
+            ) : (
+              <TableCell>Loading...</TableCell>
+            )}
+            {films && films.length === 0 && <TableCell>None</TableCell>}
+            {films ? (
+              <TableCell>
+                {films?.map((film) => (
+                  <Typography variant="body2">{film.title}</Typography>
+                ))}
+              </TableCell>
+            ) : (
+              <TableCell>Loading...</TableCell>
+            )}
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>

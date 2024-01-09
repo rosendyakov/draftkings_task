@@ -11,7 +11,11 @@ type StarshipDetailsListProps = {
 
 export const StarshipDetailsList = ({ item }: StarshipDetailsListProps) => {
   const isEnabled = true;
-  const { data: films } = useFilms(item?.films ?? [], isEnabled);
+  const {
+    data: films,
+    isLoading: isFilmsLoading,
+    isError: isFilmsError,
+  } = useFilms(item?.films ?? [], isEnabled);
 
   return (
     <Grid container flexDirection={"column"}>
@@ -34,7 +38,11 @@ export const StarshipDetailsList = ({ item }: StarshipDetailsListProps) => {
           Cost in Credits: {item?.cost_in_credits}
         </Typography>
         <Typography variant="body2" m={1}>
-          Films: {films?.map((film) => film.title).join(", ")}
+          Films:
+          {isFilmsError && <Typography>Error loading films</Typography>}
+          {isFilmsLoading
+            ? "Loading..."
+            : films?.map((film) => film.title).join(", ")}
         </Typography>
         <Link to={getUrlPathName(item?.url ?? "")}>
           <Button variant="text" endIcon={<ArrowForward />}>

@@ -16,10 +16,26 @@ type PersonDetailsListProps = {
 
 export const PersonDetailsList = ({ item }: PersonDetailsListProps) => {
   const isEnabled = true;
-  const { data: films } = useFilms(item?.films ?? [], isEnabled);
-  const { data: species } = useSpecies(item?.species ?? [], isEnabled);
-  const { data: vehicles } = useVehicles(item?.vehicles ?? [], isEnabled);
-  const { data: starships } = useStarships(item?.starships ?? [], isEnabled);
+  const {
+    data: films,
+    isLoading: isFilmsLoading,
+    isError: filmsError,
+  } = useFilms(item?.films ?? [], isEnabled);
+  const {
+    data: species,
+    isLoading: isSpeciesLoading,
+    isError: speciesError,
+  } = useSpecies(item?.species ?? [], isEnabled);
+  const {
+    data: vehicles,
+    isLoading: isVehiclesLoading,
+    isError: vehiclesError,
+  } = useVehicles(item?.vehicles ?? [], isEnabled);
+  const {
+    data: starships,
+    isLoading: isStarshipsLoading,
+    isError: starshipsError,
+  } = useStarships(item?.starships ?? [], isEnabled);
 
   return (
     <Grid container flexDirection={"column"}>
@@ -36,16 +52,32 @@ export const PersonDetailsList = ({ item }: PersonDetailsListProps) => {
           Birth Year: {item?.birth_year}
         </Typography>
         <Typography variant="body2" m={1}>
-          Films: {films?.map((film) => film.title).join(", ")}
+          Films:
+          {filmsError && <Typography>Error loading films</Typography>}
+          {isFilmsLoading
+            ? "Loading..."
+            : films?.map((film) => film.title).join(", ")}
         </Typography>
         <Typography variant="body2" m={1}>
-          Species: {species?.map((specie) => specie.name).join(", ")}
+          Species:
+          {speciesError && <Typography>Error loading species</Typography>}
+          {isSpeciesLoading
+            ? "Loading..."
+            : species?.map((specie) => specie.name).join(", ")}
         </Typography>
         <Typography variant="body2" m={1}>
-          Vehicles: {vehicles?.map((vehicle) => vehicle.name).join(", ")}
+          Vehicles:
+          {vehiclesError && <Typography>Error loading vehicles</Typography>}
+          {isVehiclesLoading
+            ? "Loading..."
+            : vehicles?.map((vehicle) => vehicle.name).join(", ")}
         </Typography>
         <Typography variant="body2" m={1}>
-          Starships: {starships?.map((starship) => starship.name).join(", ")}
+          Starships:
+          {starshipsError && <Typography>Error loading starships</Typography>}
+          {isStarshipsLoading
+            ? "Loading..."
+            : starships?.map((starship) => starship.name).join(", ")}
         </Typography>
         <Link to={getUrlPathName(item?.url ?? "")}>
           <Button variant="text" endIcon={<ArrowForward />}>
