@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
-import { getFilms, getResults, getSingleResult } from "../services/getResults";
+import { getFilms, getResidents, getResults, getSingleResult, getSpecies, getStarships, getVehicles } from "../services/getResults";
 import { QUERY_STALE_TIME } from "../utils/constants/constants";
+import { Person, Planet, Starship, Vehicle } from "../utils/types/types";
 
 const useResults = (category: string, searchQuery: string) => {  
   return useQuery({
@@ -12,24 +13,70 @@ const useResults = (category: string, searchQuery: string) => {
 
 }
 
-const useFilms = (urls: string[]) => {
+const useFilms = (urls: string[], isEnabled: boolean) => {
   return useQuery({
     queryKey: ["films", urls],
     queryFn: () => getFilms(urls),
-    staleTime: QUERY_STALE_TIME
+    staleTime: QUERY_STALE_TIME,
+    enabled: isEnabled
   })
 }
 
-const useSingleResult = (category: string, id: string) => {
+const useSpecies = (urls: string[], isEnabled: boolean) => {
   return useQuery({
-    queryKey: [category, id],
-    queryFn: () => getSingleResult(category, id),
-    staleTime: QUERY_STALE_TIME
+    queryKey: ["species", urls],
+    queryFn: () => getSpecies(urls),
+    staleTime: QUERY_STALE_TIME,
+    enabled: isEnabled
   })
 }
+
+const useVehicles = (urls: string[], isEnabled: boolean) => {
+  return useQuery({
+    queryKey: ["vehicles", urls],
+    queryFn: () => getVehicles(urls),
+    staleTime: QUERY_STALE_TIME,
+    enabled: isEnabled
+  })
+}
+
+const useStarships = (urls: string[], isEnabled: boolean) => {
+  return useQuery({
+    queryKey: ["starships", urls],
+    queryFn: () => getStarships(urls),
+    staleTime: QUERY_STALE_TIME,
+    enabled: isEnabled
+  })
+}
+
+const useResidents = (urls: string[], isEnabled: boolean) => {
+  return useQuery({
+    queryKey: ["residents", urls],
+    queryFn: () => getResidents(urls),
+    staleTime: QUERY_STALE_TIME,
+    enabled: isEnabled
+  })
+}
+
+
+const useSingleResult = <T extends Person | Planet | Vehicle | Starship>(
+  category: string,
+  id: string
+) => {
+  return useQuery<T>({
+    queryKey: [category, id],
+    queryFn: () => getSingleResult<T>(category, id),
+    staleTime: QUERY_STALE_TIME,
+  });
+};
+
 
 export {
   useResults,
   useFilms,
+  useSpecies,
+  useVehicles,
+  useStarships,
+  useResidents,
   useSingleResult
 }

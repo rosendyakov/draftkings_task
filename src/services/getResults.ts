@@ -1,5 +1,5 @@
 import { BASE_URL, CATEGORY_ENUM, ENDPOINTS } from "../utils/constants/constants"
-import { AllApiResponses, CategoryApiResponse, Film, Starship, Vehicle } from "../utils/types/types";
+import { AllApiResponses, CategoryApiResponse, Film, Person, Planet, Species, Starship, Vehicle } from "../utils/types/types";
 
 
 
@@ -28,26 +28,24 @@ const getResults = async (category: string, searchQuery: string): Promise<AllApi
   }
 };
 
-const getFilms = async (urls: string[]): Promise<Film[]> => {
+
+const fetchSingleData = async <T>(urls: string[]): Promise<T[]> => {
   const promises = urls.map(url => fetch(url).then(response => response.json()));
   const response = await Promise.all(promises);
   return response;
 }
 
-const getVehicles = async (urls: string[]): Promise<Vehicle[]> => {
-  const promises = urls.map(url => fetch(url).then(response => response.json()));
-  const response = await Promise.all(promises);
-  return response;
-}
+const getFilms = (urls: string[]): Promise<Film[]> => fetchSingleData(urls);
+const getSpecies = (urls: string[]): Promise<Species[]> => fetchSingleData(urls);
+const getVehicles = (urls: string[]): Promise<Vehicle[]> => fetchSingleData(urls);
+const getStarships = (urls: string[]): Promise<Starship[]> => fetchSingleData(urls);
+const getResidents = (urls: string[]): Promise<Person[]> => fetchSingleData(urls);
 
-const getStarships = async (urls: string[]): Promise<Starship[]> => {
-  const promises = urls.map(url => fetch(url).then(response => response.json()));
-  const response = await Promise.all(promises);
-  return response;
-}
 
-const getSingleResult = async (category: string, id: string): Promise<CategoryApiResponse> => {
-  const url = new URL(`${BASE_URL}${category.toLowerCase()}/${id}`);
+const getSingleResult = async <T extends Person | Planet | Vehicle | Starship>(
+  category: string,
+  id: string
+): Promise<T> => {  const url = new URL(`${BASE_URL}${category.toLowerCase()}/${id}`);
   const response = await fetch(url.toString());
   return response.json();
 }
@@ -55,7 +53,9 @@ const getSingleResult = async (category: string, id: string): Promise<CategoryAp
 export {
   getResults,
   getFilms,
+  getSpecies,
   getVehicles,
   getStarships,
+  getResidents,
   getSingleResult
 };
